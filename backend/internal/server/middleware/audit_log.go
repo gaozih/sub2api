@@ -75,12 +75,14 @@ var auditActionOverrides = map[string]string{
 	"PUT /api/v1/admin/backups/s3-config":                  "admin.backups.s3_config.update",
 	"POST /api/v1/admin/settings/admin-api-key/regenerate": "admin.admin_api_key.regenerate",
 	"DELETE /api/v1/admin/settings/admin-api-key":          "admin.admin_api_key.delete",
+	"POST /api/v1/admin/users/:id/api-keys":                "admin.users.api_keys.create",
 }
 
 // auditBodyOmittedRoutes 请求体几乎整体由凭证构成的路由（如整块粘贴 auth JSON 的导入接口）。
 // 这类 body 的凭证内嵌在普通字符串值里，键级脱敏无法覆盖，整体不入库。
 var auditBodyOmittedRoutes = map[string]struct{}{
 	"POST /api/v1/admin/accounts/import/codex-session": {},
+	"POST /api/v1/admin/users/:id/api-keys":            {},
 }
 
 // NewAuditLogMiddleware 创建审计中间件。
